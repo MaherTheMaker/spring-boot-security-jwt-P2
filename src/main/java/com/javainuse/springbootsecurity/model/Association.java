@@ -43,4 +43,7 @@ public class Association {
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Volunteer_Association> volunteer_associations;
 
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Employee> employees;
+
 }
