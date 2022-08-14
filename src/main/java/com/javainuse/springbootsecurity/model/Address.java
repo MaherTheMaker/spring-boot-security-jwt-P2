@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Address {
+    //frgtgtgt
     @Id
     @GeneratedValue
     private Long id;
