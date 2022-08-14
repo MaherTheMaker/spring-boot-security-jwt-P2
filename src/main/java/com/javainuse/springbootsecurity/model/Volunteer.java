@@ -38,8 +38,8 @@ public class Volunteer {
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Volunteer_Skill> volunteerSkills;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "volunteers") List<Association> associations;
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Volunteer_Association> volunteer_associations;
 
     public Volunteer() {
     }

@@ -38,9 +38,9 @@ public class Association {
     @OneToOne
     private Address address;
 
-    @ManyToMany
-    @JoinTable(name = "volunteer_Association", joinColumns = @JoinColumn(name = "association_id"), inverseJoinColumns =
-    @JoinColumn(name = "volunteer_id"))
-    List<Volunteer> volunteers;
+
+
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Volunteer_Association> volunteer_associations;
 
 }
