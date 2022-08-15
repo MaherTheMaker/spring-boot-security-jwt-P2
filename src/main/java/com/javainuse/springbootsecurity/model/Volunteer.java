@@ -41,6 +41,8 @@ public class Volunteer {
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Volunteer_Association> volunteer_associations;
 
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Event_Task_Volunteer> event_task_volunteers;
     public Volunteer() {
     }
 
