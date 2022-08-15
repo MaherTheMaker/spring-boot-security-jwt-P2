@@ -38,8 +38,9 @@ public class User {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	private Beneficiary beneficiary;
 
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//	private Volunteer volunteer;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Volunteer volunteer;
+
 	@JsonIgnore
 	@OneToOne
 	private Profile profile;

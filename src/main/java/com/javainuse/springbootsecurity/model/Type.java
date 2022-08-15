@@ -4,5 +4,6 @@ public enum Type {
     Volunteer,
     Beneficiary,
     SystemAdmin,
+    AssociationEmp,
     AssociationAdmin
 }

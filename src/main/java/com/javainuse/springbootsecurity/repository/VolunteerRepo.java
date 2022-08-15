@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface VolunteerRepo extends JpaRepository<Volunteer, Integer> {
-    Volunteer findById(int id);
+    Volunteer findById(Long id);
 
 }
