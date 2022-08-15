@@ -3,10 +3,7 @@ package com.javainuse.springbootsecurity.Services;
 
 import com.javainuse.springbootsecurity.model.*;
 import com.javainuse.springbootsecurity.model.Exception.NotFoundException;
-import com.javainuse.springbootsecurity.repository.AssociationRepo;
-import com.javainuse.springbootsecurity.repository.UserRepo;
-import com.javainuse.springbootsecurity.repository.VolunteerRepo;
-import com.javainuse.springbootsecurity.repository.Volunteer_AssociationRepo;
+import com.javainuse.springbootsecurity.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +21,12 @@ public class AssociationService {
     private AssociationRepo associationRepo;
 
     @Autowired
+    private EmployeeRepo employeeRepo;
+
+    @Autowired
+    UsersService usersService;
+
+    @Autowired
     private Volunteer_AssociationRepo volunteer_associationRepo;
 
     public Association RegisterAssociation (Association association,int userId)
@@ -35,6 +38,36 @@ public class AssociationService {
         return association;
     }
 
+    public Association AddNewEmp (Long AssId,User user,Profile profile,int price)
+    {
+
+       Association association  = associationRepo.findById(AssId);
+
+       if(association==null)
+           throw  new NotFoundException("no such Association");
+
+       User userEmp=usersService.RegisterUser(user,profile);
+
+
+        Employee emp=new Employee();
+        emp.setUser(userEmp);
+        emp.setPrice(price);
+        emp.setAssociation(association);
+        emp.getUser().setType(Type.AssociationEmp);
+        emp.getUser().getProfile().setRole("ROLE_EMP");
+        Employee employee= employeeRepo.save(emp);
+
+        association.getEmployees().add(employee);
+
+        associationRepo.save(association);
+
+
+
+
+
+
+        return association;
+    }
     public  Volunteer_Association changeStatus(Long vaID,Volunteer_Association va )
     {
        Volunteer_Association volunteer_association= volunteer_associationRepo.findById(vaID);
