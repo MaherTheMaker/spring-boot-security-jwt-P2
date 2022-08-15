@@ -23,5 +23,7 @@ public class VolunteerController {
        Volunteer volunteer2= volunteerService.RegisterVolunteer(volunteer,userid);
         return ResponseEntity.ok().body(volunteer2);
     }
+
+
 }
 

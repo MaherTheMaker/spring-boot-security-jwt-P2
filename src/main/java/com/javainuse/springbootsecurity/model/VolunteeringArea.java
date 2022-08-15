@@ -3,6 +3,7 @@ package com.javainuse.springbootsecurity.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,8 +23,8 @@ public class VolunteeringArea {
     @Column
     private String volunteeringArea;
 
-//    @OneToMany(mappedBy = "volunteerArea", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Volunteer_VolunteeringArea> VolunteerAreas;
+    @OneToMany(mappedBy = "volunteerArea", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Volunteer_VolunteeringArea> VolunteerAreas;
 
     public VolunteeringArea() {
     }

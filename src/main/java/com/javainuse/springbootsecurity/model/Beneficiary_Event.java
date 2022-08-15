@@ -26,4 +26,5 @@ public class Beneficiary_Event {
     @JoinColumn(name = "beneficiary_id")
     @JsonIgnore
     private Beneficiary beneficiary;
+
 }

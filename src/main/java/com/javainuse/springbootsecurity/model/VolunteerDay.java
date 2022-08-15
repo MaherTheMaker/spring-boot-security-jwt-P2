@@ -3,6 +3,7 @@ package com.javainuse.springbootsecurity.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,8 +18,8 @@ public class VolunteerDay {
     @Column
     Days days;
 
-//    @OneToMany(mappedBy = "volunteerDay", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Volunteer_VolunteerDay> volunteerDay;
+    @OneToMany(mappedBy = "volunteerDay", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Volunteer_VolunteerDay> volunteerDay;
 
     public VolunteerDay() {
     }

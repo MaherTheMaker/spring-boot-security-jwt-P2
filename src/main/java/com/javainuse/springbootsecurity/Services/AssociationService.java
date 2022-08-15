@@ -7,6 +7,8 @@ import com.javainuse.springbootsecurity.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AssociationService {
 
@@ -24,6 +26,13 @@ public class AssociationService {
     private EmployeeRepo employeeRepo;
 
     @Autowired
+    private EventRepo eventRepo;
+
+    @Autowired
+    private Event_TaskRepo event_taskRepo;
+
+
+    @Autowired
     UsersService usersService;
 
     @Autowired
@@ -37,6 +46,13 @@ public class AssociationService {
 
         return association;
     }
+
+    public List<Association> GetAllAss ()
+    {
+
+        return associationRepo.findAll();
+    }
+
 
     public Association AddNewEmp (Long AssId,User user,Profile profile,int price)
     {
@@ -62,12 +78,9 @@ public class AssociationService {
         associationRepo.save(association);
 
 
-
-
-
-
         return association;
     }
+
     public  Volunteer_Association changeStatus(Long vaID,Volunteer_Association va )
     {
        Volunteer_Association volunteer_association= volunteer_associationRepo.findById(vaID);
@@ -77,8 +90,9 @@ public class AssociationService {
         return volunteer_association;
 
 
-
     }
+
+
     public  Association addVolToAssociation(Long assId, Long volId)
     {
         Volunteer volunteer =volunteerRepo.findById(volId);
@@ -109,6 +123,58 @@ public class AssociationService {
     return association;
 
     }
+
+
+    public  Association AddEvent(Long AssId,Event event,List<Long> benIds)
+    {
+        Association association  = associationRepo.findById(AssId);
+
+        if(association==null)
+            throw  new NotFoundException("no such Association");
+
+        event.setAssociation(association);
+        Event event1=eventRepo.save(event);
+
+        //todo get bens and add them to the list
+
+        return association;
+    }
+
+    public List<Event> GetEventByAss(Long AssId)
+    {
+        Association association  = associationRepo.findById(AssId);
+
+        if(association==null)
+            throw  new NotFoundException("no such Association");
+
+        //Todo Add Event to Ass  eventList
+
+        return eventRepo.findAllByAssociation(association);
+
+    }
+
+    public Event AddTaskToEvent(Long EveId,Event_Task event_task,List<Long> volIds)
+    {
+        Event event=eventRepo.findById(EveId);
+
+        if(event==null)
+            throw  new NotFoundException("no such Event");
+
+        event_task.setEvent(event);
+        Event_Task event_task1=event_taskRepo.save(event_task);
+
+        event.getEvent_tasks().add(event_task1);
+
+        //todo add vol to vollist
+
+
+
+        return  eventRepo.save(event);
+
+    }
+
+
+
 
 
 

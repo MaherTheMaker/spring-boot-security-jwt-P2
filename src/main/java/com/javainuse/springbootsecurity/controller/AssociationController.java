@@ -2,14 +2,13 @@ package com.javainuse.springbootsecurity.controller;
 
 import com.javainuse.springbootsecurity.Services.AssociationService;
 import com.javainuse.springbootsecurity.Services.UsersService;
-import com.javainuse.springbootsecurity.model.Association;
-import com.javainuse.springbootsecurity.model.Employee;
-import com.javainuse.springbootsecurity.model.User;
-import com.javainuse.springbootsecurity.model.Volunteer_Association;
+import com.javainuse.springbootsecurity.model.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ass")
@@ -57,6 +56,30 @@ public class AssociationController {
         return ResponseEntity.ok().body(association1);
 
     }
+    @RequestMapping(value = "/AddNewEvent",method = RequestMethod.POST)
+    public ResponseEntity<Association> AddNewEvent(@RequestBody AddEventToAss addEventToAss) throws Exception
+    {
+
+        Association association1=associationService.AddEvent(addEventToAss.assId,addEventToAss.event,addEventToAss.benIds);
+        return ResponseEntity.ok().body(association1);
+
+    }
+
+    @RequestMapping(value = "/GetEvents/{assId}",method = RequestMethod.GET)
+    public ResponseEntity<List<Event>> GetEvents(@PathVariable Long assId) throws Exception
+    {
+        return ResponseEntity.ok().body( associationService.GetEventByAss(assId));
+
+    }
+
+    @RequestMapping(value = "/AddTaskToEven",method = RequestMethod.POST)
+    public ResponseEntity<Event> AddTaskToEven(@RequestBody AddTaskToEvent addTaskToEvent) throws Exception
+    {
+
+       Event event= associationService.AddTaskToEvent(addTaskToEvent.eveId,addTaskToEvent.event_task,addTaskToEvent.volIds);
+        return ResponseEntity.ok().body(event);
+
+    }
 
 }
 @Data
@@ -73,3 +96,21 @@ class AddEmpToAss
     newUser newUser;
     int price;
 }
+@Data
+class AddEventToAss
+{
+    Long assId;
+    Event event;
+    List<Long> benIds;
+
+}
+
+@Data
+class AddTaskToEvent
+{
+    Long eveId;
+    Event_Task event_task;
+    List<Long> volIds;
+
+}
+

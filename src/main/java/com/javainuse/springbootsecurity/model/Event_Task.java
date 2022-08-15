@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Event_Task {
+public class    Event_Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,3 +32,4 @@ public class Event_Task {
     @OneToMany(mappedBy = "eventTask", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Event_Task_Volunteer> eventTaskVolunteers;
 }
+

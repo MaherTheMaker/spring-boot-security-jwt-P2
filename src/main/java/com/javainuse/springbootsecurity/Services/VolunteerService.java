@@ -3,6 +3,7 @@ package com.javainuse.springbootsecurity.Services;
 
 
 import com.javainuse.springbootsecurity.model.Exception.NotFoundException;
+import com.javainuse.springbootsecurity.model.Type;
 import com.javainuse.springbootsecurity.model.User;
 import com.javainuse.springbootsecurity.model.Volunteer;
 import com.javainuse.springbootsecurity.model.VolunteerDay;
@@ -33,6 +34,8 @@ public class VolunteerService  {
       if (user==null)
           throw new NotFoundException("no such user id");
 
+        user.setType(Type.Volunteer);
+        userRepo.save(user);
         volunteer.setUser(user);
 
         volunteer=volunteerRepo.save(volunteer);
