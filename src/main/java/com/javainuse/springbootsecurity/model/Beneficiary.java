@@ -1,5 +1,6 @@
 package com.javainuse.springbootsecurity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Beneficiary  implements Serializable {
     @JoinColumn(name = "User_id")
     private User user;
 
+//    @JsonIgnore
     @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Need> needs;
 
