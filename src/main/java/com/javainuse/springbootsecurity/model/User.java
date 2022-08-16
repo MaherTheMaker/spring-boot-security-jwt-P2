@@ -35,9 +35,11 @@ public class User {
 //	@JoinColumn(name = "address_id")
 	private Address address;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	private Beneficiary beneficiary;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Volunteer volunteer;
 

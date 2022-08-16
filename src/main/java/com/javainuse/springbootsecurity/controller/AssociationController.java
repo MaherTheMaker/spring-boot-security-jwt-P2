@@ -3,12 +3,14 @@ package com.javainuse.springbootsecurity.controller;
 import com.javainuse.springbootsecurity.Services.AssociationService;
 import com.javainuse.springbootsecurity.Services.UsersService;
 import com.javainuse.springbootsecurity.model.*;
+import com.javainuse.springbootsecurity.repository.SkillRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Properties;
 
 @RestController
 @RequestMapping(value = "/ass")
@@ -21,13 +23,18 @@ public class AssociationController {
     @Autowired
     UsersService usersService;
 
-    @RequestMapping(value = "/add/{userid}",method = RequestMethod.POST)
-    public ResponseEntity<Association> addAss(@RequestBody Association association, @PathVariable int userid) throws Exception
-    {
+    @Autowired
+    SkillRepository skillRepository;
 
-       Association association1=associationService.RegisterAssociation(association,userid);
-        return ResponseEntity.ok().body(association);
-    }
+
+
+//    @RequestMapping(value = "/add/{userid}",method = RequestMethod.POST)
+//    public ResponseEntity<Association> addAss(@RequestBody Association association, @PathVariable int userid) throws Exception
+//    {
+//
+//       Association association1=associationService.RegisterAssociation(association,userid);
+//        return ResponseEntity.ok().body(association);
+//    }
 
     @RequestMapping(value = "/addToAss",method = RequestMethod.POST)
     public ResponseEntity<Association> addToAss(@RequestBody AddVolToAss AddVolToAss) throws Exception
@@ -81,6 +88,24 @@ public class AssociationController {
 
     }
 
+    @RequestMapping(value = "/AddBenToEven",method = RequestMethod.POST)
+    public ResponseEntity<Event> AddBenToEven(@RequestBody AddBenToEvent addBenToEvent) throws Exception
+    {
+
+        Event event= associationService.AddBenToEvent(addBenToEvent.eveId,addBenToEvent.benId);
+        return ResponseEntity.ok().body(event);
+
+    }
+    @RequestMapping(value = "/AddVolToEveTask",method = RequestMethod.POST)
+    public ResponseEntity<Event_Task> AddVolToEveTask(@RequestBody AddVolToEveTask addVolToEveTask) throws Exception
+    {
+
+        Event_Task event_task= associationService.AddVolToEveTask(addVolToEveTask.eveTaskId,addVolToEveTask.volId);
+        return ResponseEntity.ok().body(event_task);
+
+    }
+
+
 }
 @Data
 class AddVolToAss
@@ -113,4 +138,19 @@ class AddTaskToEvent
     List<Long> volIds;
 
 }
+
+@Data
+class AddBenToEvent
+{
+    Long benId;
+    Long eveId;
+}
+
+@Data
+class AddVolToEveTask
+{
+    Long volId;
+    Long eveTaskId;
+}
+
 

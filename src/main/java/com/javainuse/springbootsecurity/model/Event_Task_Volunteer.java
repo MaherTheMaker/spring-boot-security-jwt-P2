@@ -25,4 +25,6 @@ public class Event_Task_Volunteer {
     @JoinColumn(name = "event_task_id")
     @JsonIgnore
     private Event_Task eventTask;
+
+
 }

@@ -7,6 +7,7 @@ import com.javainuse.springbootsecurity.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,20 +32,52 @@ public class AssociationService {
     @Autowired
     private Event_TaskRepo event_taskRepo;
 
+    @Autowired
+    private BeneficiaryRepo beneficiaryRepo;
 
     @Autowired
-    UsersService usersService;
+    private Ben_EventRepo ben_eventRepo;
 
     @Autowired
     private Volunteer_AssociationRepo volunteer_associationRepo;
 
-    public Association RegisterAssociation (Association association,int userId)
+    @Autowired
+    private Event_Task_VolunteerRepo event_task_volunteerRepo;
+
+    @Autowired
+    UsersService usersService;
+
+
+    public AssociationService() {
+    }
+
+    public Association RegisterAssociation (Association association,User user,Profile profile)
     {
 
-        associationRepo.save(association);
 
 
-        return association;
+       association= associationRepo.save(association);
+        //todo Create SuperEmp user
+        User userEmp=usersService.RegisterUser(user,profile);
+
+
+        Employee emp=new Employee();
+        emp.setUser(userEmp);
+        emp.setPrice(10000);
+        emp.setAssociation(association);
+        emp.getUser().setType(Type.AssociationAdmin);
+        emp.getUser().getProfile().setRole("ROLE_SUPEREMP");
+        Employee employee= employeeRepo.save(emp);
+
+        association.setEmployees(new ArrayList<>());
+        association.setEvents(new ArrayList<>());
+        association.setNeeds(new ArrayList<>());
+        association.setVolunteer_associations(new ArrayList<>());
+        association.getEmployees().add(employee);
+
+
+
+        return associationRepo.save(association);
     }
 
     public List<Association> GetAllAss ()
@@ -133,10 +166,13 @@ public class AssociationService {
             throw  new NotFoundException("no such Association");
 
         event.setAssociation(association);
+
+
+
+
         Event event1=eventRepo.save(event);
-
-        //todo get bens and add them to the list
-
+        association.getEvents().add(event);
+        associationRepo.save(association);
         return association;
     }
 
@@ -146,8 +182,6 @@ public class AssociationService {
 
         if(association==null)
             throw  new NotFoundException("no such Association");
-
-        //Todo Add Event to Ass  eventList
 
         return eventRepo.findAllByAssociation(association);
 
@@ -165,7 +199,7 @@ public class AssociationService {
 
         event.getEvent_tasks().add(event_task1);
 
-        //todo add vol to vollist
+
 
 
 
@@ -173,10 +207,54 @@ public class AssociationService {
 
     }
 
+    public Event AddBenToEvent(Long EveId,Long BenId)
+    {
+        Event event=eventRepo.findById(EveId);
+
+        if(event==null)
+            throw  new NotFoundException("no such Event");
+
+        Beneficiary beneficiary=beneficiaryRepo.findById(BenId);
+
+        if(beneficiary==null)
+            throw  new NotFoundException("no such Beneficiary");
+
+        Beneficiary_Event beneficiary_event=new Beneficiary_Event();
+        beneficiary_event.setBeneficiary(beneficiary);
+        beneficiary_event.setEvent(event);
+
+        Beneficiary_Event beneficiary_event1= ben_eventRepo.save(beneficiary_event);
 
 
+        event.getBeneficiary_events().add(beneficiary_event1);
 
 
+        return  eventRepo.save(event);
+
+    }
 
 
+    public Event_Task AddVolToEveTask(  Long eveTaskId,  Long volId) {
+        Event_Task event_task=event_taskRepo.findById(eveTaskId);
+
+        if(event_task==null)
+            throw  new NotFoundException("no such Event_Task");
+
+        Volunteer volunteer=volunteerRepo.findById(volId);
+
+        if(volunteer==null)
+            throw  new NotFoundException("no such Volunteer");
+
+        Event_Task_Volunteer event_task_volunteer=new Event_Task_Volunteer();
+
+        event_task_volunteer.setEventTask(event_task);
+        event_task_volunteer.setVolunteer(volunteer);
+
+         Event_Task_Volunteer event_task_volunteer1= event_task_volunteerRepo.save(event_task_volunteer);
+
+         event_task.getEventTaskVolunteers().add(event_task_volunteer1);
+
+
+        return event_taskRepo.save(event_task);
+    }
 }

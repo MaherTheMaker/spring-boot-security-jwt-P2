@@ -71,5 +71,7 @@ public class BeneficiaryService {
     }
 
 
-
+    public List<Beneficiary> GetAllBen() {
+        return beneficiaryRepo.findAll();
+    }
 }

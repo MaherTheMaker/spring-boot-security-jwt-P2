@@ -44,6 +44,7 @@ public class VolunteerService  {
     }
 
 
-
-
+    public List<Volunteer> GetAllVol() {
+        return volunteerRepo.findAll();
+    }
 }

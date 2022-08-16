@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/vol")
 public class VolunteerController {
@@ -19,11 +21,22 @@ public class VolunteerController {
     @RequestMapping(value = "/add/{userid}",method = RequestMethod.POST)
     public ResponseEntity<Volunteer> AddVol(@RequestBody Volunteer volunteer,@PathVariable int userid) throws Exception
     {
+        //Todo get list of skills and days and areas
 
        Volunteer volunteer2= volunteerService.RegisterVolunteer(volunteer,userid);
         return ResponseEntity.ok().body(volunteer2);
     }
 
 
+
+
 }
 
+@Data
+class  NewVol
+{
+    Volunteer volunteer;
+    List<Long> skillsList;
+    List<Long> daysList;
+    List<Long> areaList;
+}
