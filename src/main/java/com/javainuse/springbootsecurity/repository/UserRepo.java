@@ -5,7 +5,7 @@ import com.javainuse.springbootsecurity.model.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface UserRepo extends JpaRepository<User, Integer> {
-    User findById(int id);
+public interface UserRepo extends JpaRepository<User, Long> {
+    User findById(long id);
     User findByFullName(String name);
 }

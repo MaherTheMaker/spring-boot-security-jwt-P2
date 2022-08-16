@@ -32,6 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 			
 		Profile user = userDao.findByUsername(username);
+
 		if (user != null) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
 			return new User(user.getUsername(), user.getPassword(), roles);

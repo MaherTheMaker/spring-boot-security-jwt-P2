@@ -12,9 +12,9 @@ import java.util.List;
 @Table
 public class Beneficiary  implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long id;
     @Column
     private int childNumber;
     @Column
@@ -25,7 +25,8 @@ public class Beneficiary  implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private HousingMode housingMode;
     @OneToOne
-    @JoinColumn(name = "User_id")
+    @JoinColumn(name = "id")
+    @MapsId
     private User user;
 
 //    @JsonIgnore

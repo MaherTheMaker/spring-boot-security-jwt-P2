@@ -5,6 +5,6 @@ import com.javainuse.springbootsecurity.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Integer> {
-    Beneficiary findById(Long id);
+public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long> {
+    Beneficiary findById(long id);
 }

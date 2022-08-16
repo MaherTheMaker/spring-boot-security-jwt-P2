@@ -13,9 +13,9 @@ import java.util.List;
 @Table
 public class Volunteer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long id;
 
     @Column(name="facebook_Account")
     private String facebook;
@@ -24,7 +24,9 @@ public class Volunteer {
     private String whatsUp;
 
     @OneToOne
-    @JoinColumn(name = "User_id")
+    //@JoinColumn(name = "User_id")
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL,fetch = FetchType.EAGER)

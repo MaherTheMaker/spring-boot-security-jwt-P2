@@ -4,7 +4,7 @@ import com.javainuse.springbootsecurity.model.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface VolunteerRepo extends JpaRepository<Volunteer, Integer> {
-    Volunteer findById(Long id);
+public interface VolunteerRepo extends JpaRepository<Volunteer, Long> {
+    Volunteer findById(long id);
 
 }

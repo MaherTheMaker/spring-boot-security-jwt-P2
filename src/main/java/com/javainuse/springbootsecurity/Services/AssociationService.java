@@ -126,7 +126,7 @@ public class AssociationService {
     }
 
 
-    public  Association addVolToAssociation(Long assId, Long volId)
+    public  Association addVolToAssociation(Long assId, long volId)
     {
         Volunteer volunteer =volunteerRepo.findById(volId);
         if (volunteer==null)
@@ -207,7 +207,7 @@ public class AssociationService {
 
     }
 
-    public Event AddBenToEvent(Long EveId,Long BenId)
+    public Event AddBenToEvent(Long EveId,long BenId)
     {
         Event event=eventRepo.findById(EveId);
 
@@ -234,7 +234,7 @@ public class AssociationService {
     }
 
 
-    public Event_Task AddVolToEveTask(  Long eveTaskId,  Long volId) {
+    public Event_Task AddVolToEveTask(  Long eveTaskId,  long volId) {
         Event_Task event_task=event_taskRepo.findById(eveTaskId);
 
         if(event_task==null)

@@ -21,7 +21,7 @@ public class BeneficiaryController {
     BeneficiaryService beneficiaryService;
 
     @RequestMapping(value = "/add/{userid}",method = RequestMethod.POST)
-    public ResponseEntity<Beneficiary> AddBen(@RequestBody Beneficiary beneficiary, @PathVariable int userid) throws Exception
+    public ResponseEntity<Beneficiary> AddBen(@RequestBody Beneficiary beneficiary, @PathVariable long userid) throws Exception
     {
 
        Beneficiary beneficiary1=beneficiaryService.RegisterBeneficiary(beneficiary,userid);

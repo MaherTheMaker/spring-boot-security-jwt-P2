@@ -19,7 +19,7 @@ public class VolunteerController {
     VolunteerService volunteerService;
 
     @RequestMapping(value = "/add/{userid}",method = RequestMethod.POST)
-    public ResponseEntity<Volunteer> AddVol(@RequestBody Volunteer volunteer,@PathVariable int userid) throws Exception
+    public ResponseEntity<Volunteer> AddVol(@RequestBody Volunteer volunteer,@PathVariable long userid) throws Exception
     {
         //Todo get list of skills and days and areas
 

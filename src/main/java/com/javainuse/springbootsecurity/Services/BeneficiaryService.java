@@ -27,7 +27,7 @@ public class BeneficiaryService {
     private NeedRepo needRepo;
 
 
-    public Beneficiary RegisterBeneficiary (Beneficiary beneficiary, int userid)
+    public Beneficiary RegisterBeneficiary (Beneficiary beneficiary, long userid)
     {
       User  user= userRepo.findById(userid);
       if (user==null)
@@ -42,7 +42,7 @@ public class BeneficiaryService {
         return beneficiary;
     }
 
-    public Beneficiary AddNeeds (Long benId,Need need,Long assId)
+    public Beneficiary AddNeeds (long benId,Need need,Long assId)
     {
 
         Beneficiary beneficiary=beneficiaryRepo.findById(benId);

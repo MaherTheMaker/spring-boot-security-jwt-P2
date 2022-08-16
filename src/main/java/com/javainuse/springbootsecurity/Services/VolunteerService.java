@@ -28,7 +28,7 @@ public class VolunteerService  {
     private UserRepo userRepo;
 
 
-    public Volunteer RegisterVolunteer (Volunteer volunteer,int userid)
+    public Volunteer RegisterVolunteer (Volunteer volunteer,long userid)
     {
       User  user= userRepo.findById(userid);
       if (user==null)

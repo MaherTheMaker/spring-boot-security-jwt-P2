@@ -14,8 +14,9 @@ import java.util.List;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private long id;
 	@NonNull
 	private String fullName;
 	private String nationality;
@@ -45,9 +46,11 @@ public class User {
 
 	@JsonIgnore
 	@OneToOne
+	@MapsId
+	@JoinColumn(name = "id")
 	private Profile profile;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

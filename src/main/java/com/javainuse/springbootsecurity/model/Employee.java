@@ -15,12 +15,14 @@ import java.util.List;
 @Table
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long id;
     @Column
     private int price;
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "User_id")
+    @JoinColumn(name = "id")
+    @MapsId
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
